@@ -8,6 +8,8 @@ import {
   TextInput,
   Button,
   StyleSheet,
+  TouchableOpacity,
+  Image
 } from 'react-native'
 import { useTheme } from '@/Theme'
 import { useTranslation } from 'react-i18next'
@@ -25,6 +27,8 @@ const IndexExampleContainer = () => {
     (state) => state.user?.fetchOne.loading,
   )
   const fetchOneUserError = useSelector((state) => state.user?.fetchOne.error)
+
+  const [fetchOneLoading, setfetchOneUserLoading] = useState(false)
 
   const [firstAmountTF, setFirstAmount] = useState('1')
   const [resultAmountTF, setresultAmountTF] = useState('1')
@@ -100,7 +104,7 @@ const IndexExampleContainer = () => {
   }, [user])
 
   const callExchageRateApi = () => {
-
+    setfetchOneUserLoading(true)
     axios
     .get(
       `http://api.currencylayer.com/live?access_key=6b4a56a3ccc7e76654f0c8f75e826854`,
@@ -116,6 +120,7 @@ const IndexExampleContainer = () => {
         })
         setconversionvalue(dataB)
       }
+      setfetchOneUserLoading(false)
     })
   }
 
@@ -135,7 +140,7 @@ const IndexExampleContainer = () => {
     <View style={[Layout.fill, Layout.colCenter, Gutters.smallHPadding]}>
       <View style={[[Layout.colCenter, Gutters.smallHPadding]]}>
         {/* <Brand /> */}
-        {fetchOneUserLoading && <ActivityIndicator />}
+        {fetchOneUserLoading || fetchOneLoading && <ActivityIndicator />}
 
         <Text style={Fonts.titleLarge}>{'Currency Converter'}</Text>
       </View>
@@ -148,6 +153,7 @@ const IndexExampleContainer = () => {
           Common.backgroundPrimary,
         ]}
       >
+    
         <Text style={[Layout.fill, Fonts.textCenter]}>{'Enter Amount'}</Text>
         <TextInput
           onChangeText={(text) => firstAmountTFC(text)}
@@ -230,6 +236,9 @@ const IndexExampleContainer = () => {
       <Button onPress={() => changeTheme({ darkMode: null })} title="Auto" />
       <Button onPress={() => changeTheme({ darkMode: true })} title="Dark" />
       <Button onPress={() => changeTheme({ darkMode: false })} title="Light" />
+      <TouchableOpacity  onPress={() => callExchageRateApi()} > 
+      <Image source={require('../../Assets/Images/refresh-icon.png')} style={Styles.refresh}></Image>
+           </TouchableOpacity>
     </View>
   )
 }
@@ -284,6 +293,11 @@ const Styles = StyleSheet.create({
     marginLeft: 10,
     width: 10,
     height: 10,
+    alignSelf: 'center',
+  },
+  refresh: {
+    width: 40,
+    height: 40,
     alignSelf: 'center',
   },
   listTextViewStyle: {
