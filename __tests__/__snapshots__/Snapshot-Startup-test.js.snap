@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+Array [
+  <View
+    style={
+      Array [
+        Object {
+          "flex": 1,
+        },
+        Object {
+          "alignItems": "center",
+          "flexDirection": "column",
+          "justifyContent": "center",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "height": 200,
+          "width": 200,
+        }
+      }
+    >
+      <Image
+        resizeMode="contain"
+        source="test-file-stub"
+        style={
+          Object {
+            "height": "100%",
+            "width": "100%",
+          }
+        }
+      />
+    </View>
+    <ActivityIndicator
+      animating={true}
+      color="#999999"
+      hidesWhenStopped={true}
+      size="large"
+      style={
+        Array [
+          Object {
+            "marginVertical": 30,
+          },
+        ]
+      }
+    />
+    <Text
+      style={
+        Object {
+          "margin": 10,
+          "textAlign": "center",
+        }
+      }
+    >
+      welcome
+    </Text>
+  </View>,
+  " ",
+]
+`;
